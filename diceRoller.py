@@ -10,7 +10,6 @@ from discord.ext import commands
 
 errorHandler = helpers.ExceptionHandler()
 validator = helpers.Validator()
-labelIndex = helpers.LabelIndex()
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
@@ -29,11 +28,7 @@ usage='[step number, ex: 8] Optional:{1} Optional:[Dice code i.e. 1d6e6]'.format
 case_insensitive=True)
 async def step(ctx, *args):
     response = 'Unhandled error occured.'
-
-    debug = any(i in args for i in const.debugTypes)
-    karma = any(i in args for i in const.karmaTypes)
-    specialKarma = (any(i in args for i in const.specialKarmaTypes) and args[2] is not None)
-    rollLabel = (any(i in args for i in const.rollName) and args[LabelIndex()] is not None)
+    cmds = UserInput(args)
 
     try:
         validator.isfloat(args[0])
