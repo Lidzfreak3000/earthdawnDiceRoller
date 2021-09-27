@@ -28,18 +28,18 @@ usage='[step number, ex: 8] Optional:{1} Optional:[Dice code i.e. 1d6e6]'.format
 case_insensitive=True)
 async def step(ctx, *args):
     response = 'Unhandled error occured.'
-    cmds = UserInput(args)
+    cmds = helpers.UserInput(args)
 
     try:
         validator.isfloat(args[0])
 
         #Add a label if it was sent
-        response = '' if not rollLabel else str(args[4]) +": "
+        response = '' if not cmds._rollLabel[0] else str(args[4]) +": "
 
         #Make the requested roll
-        if karma:
+        if cmds._karma:
             response += str(d20.roll(const.steps[args[0]] + '+1d6e6'))
-        elif specialKarma:
+        elif cmds._specialKarma:
             response += str(d20.roll(const.steps[args[0]] + '+' + args[2]))
         else:
             response += str(d20.roll(const.steps[args[0]]))

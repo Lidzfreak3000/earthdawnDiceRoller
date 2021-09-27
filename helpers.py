@@ -2,6 +2,7 @@ from typing import Tuple
 from d20 import RollSyntaxError
 import constants as const
 
+
 class ExceptionHandler():
     @staticmethod
     def exHand(ex, debug):
@@ -37,13 +38,80 @@ class Validator():
         if value is not None:
             int(value)
 
-class Label():
+class InputParameter:
+    def __init__(self, *args):
+        self._exists = exists(args)
+        self._value = fetchValue(args)
+
+    @staticmethod
+    def exists(*args, cmdNames):
+        return any(i in args for i in cmdNames)
+
+    @staticmethod
+    def fetchValue(*args) -> None:
+        label = None
+        index = 0
+
+        for lbl in args:
+            index += 1
+            if const.rollName.__contains__(lbl):
+                label = args[index]
+
+        print(label)
+        return label
+
+class Label(InputParameter):
     @staticmethod
     def exists(*args):
         return any(i in args for i in const.rollName)
 
-    @staticmethod    
-    def fetchLabel(*args):
+    @staticmethod
+    def fetchValue(*args):
+        label = None
+        index = 0
+
+        for lbl in args:
+            index += 1
+            if const.rollName.__contains__(lbl):
+                label = args[index]
+
+        print(label)
+        return label
+
+
+class Karma(InputParameter):
+    @staticmethod
+    def exists(*args):
+        return any(i in args for i in const.karmaTypes)
+
+    @staticmethod
+    def fetchValue(*args):
+        label = None
+        for lbl in args:
+            label += lbl
+        print(label)
+        return label
+
+class SpecialKarma(InputParameter):
+    @staticmethod
+    def exists(*args):
+        return (any(i in args for i in const.specialKarmaTypes) and args[2] is not None)
+
+    @staticmethod
+    def fetchValue(*args):
+        label = None
+        for lbl in args:
+            label += lbl
+        print(label)
+        return label
+
+class Debug(InputParameter):
+    @staticmethod
+    def exists(*args):
+        return any(i in args for i in const.debugTypes)
+
+    @staticmethod
+    def fetchValue(*args):
         label = None
         for lbl in args:
             label += lbl
@@ -52,9 +120,11 @@ class Label():
 
 class UserInput():
     def __init__(self, *args):
-        self._debug = any(i in args for i in const.debugTypes)
-        self._karma = any(i in args for i in const.karmaTypes)
-        self._specialKarma = (any(i in args for i in const.specialKarmaTypes) and args[2] is not None)
+        self._debug = 
+        self._karma = 
+        self._specialKarma = 
         self._rollLabel = {Label.exists(args), Label.fetchLabel(args)}
-
-     
+        # self._debug = any(i in args for i in const.debugTypes)
+        # self._karma = (any(i in args for i in const.karmaTypes))
+        # self._specialKarma = (any(i in args for i in const.specialKarmaTypes) and args[2] is not None)
+        # self._rollLabel = {Label.exists(args), Label.fetchLabel(args)}
