@@ -2,18 +2,19 @@
 import os
 import discord
 import d20
-import exceptionHandler
+import helpers
 import constants as const
 
 from dotenv import load_dotenv
 from discord.ext import commands
 
+errorHandler = helpers.ExceptionHandler()
+validator = helpers.Validator()
+labelIndex = helpers.LabelIndex()
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 bot = commands.Bot(command_prefix='!')
-errorHandler = exceptionHandler.ExceptionHandler()
-validator = exceptionHandler.Validator()
 
 @bot.event
 async def on_message(message):
@@ -22,40 +23,36 @@ async def on_message(message):
 	# INCLUDES THE COMMANDS FOR THE BOT. WITHOUT THIS LINE, YOU CANNOT TRIGGER YOUR COMMANDS.
 	await bot.process_commands(message)
 
-@bot.command(aliases=['s', 'Step', 'S'], brief='Rolls the step number you passed with or without karma', description='Use !<s|step> <step number i.e. 8> <k|karma>')
+@bot.command(aliases=['s'], brief='Rolls the step number you passed with or without karma',
+description='Rolls the step number passed in and can add standard karma (1d6) or specialKarma (1d8, etc.). The karma is optional but first step number is required.', 
+usage='[step number, ex: 8] Optional:{1} Optional:[Dice code i.e. 1d6e6]'.format({'s', 'step'}, list(const.karmaTypes) + list(const.specialKarmaTypes)), 
+case_insensitive=True)
 async def step(ctx, *args):
     response = 'Unhandled error occured.'
+
     debug = any(i in args for i in const.debugTypes)
+    karma = any(i in args for i in const.karmaTypes)
+    specialKarma = (any(i in args for i in const.specialKarmaTypes) and args[2] is not None)
+    rollLabel = (any(i in args for i in const.rollName) and args[LabelIndex()] is not None)
 
     try:
         validator.isfloat(args[0])
 
-        if len(args) >= 2 and args[1] != None:
-            strArg2 = str(args[1])
+        #Add a label if it was sent
+        response = '' if not rollLabel else str(args[4]) +": "
+
+        #Make the requested roll
+        if karma:
+            response += str(d20.roll(const.steps[args[0]] + '+1d6e6'))
+        elif specialKarma:
+            response += str(d20.roll(const.steps[args[0]] + '+' + args[2]))
         else:
-            strArg2 = ''
-
-        if const.karmaTypes.__contains__(strArg2.lower()):
-            response = d20.roll(const.steps[args[0]] + '+1d6e6')
-        else:
-            response = d20.roll(const.steps[args[0]])
-
-    except Exception as ex:
-        response = errorHandler.exHand(ex, debug)
-            
-    await ctx.send(response)
-
-
-@bot.command(aliases=['r', 'R', 'Roll'], brief='Rolls the step number you passed with or without karma', description='Use !<s|step> <step number i.e. 8> <k|karma>')
-async def roll(ctx, *args):
-    response = 'Unhandled error occured.'
-    debug = any(i in args for i in const.debugTypes)
-
-    try:
-        response = d20.roll(args[0])
+            response += str(d20.roll(const.steps[args[0]]))
 
     except Exception as ex:
         response = errorHandler.exHand(ex, debug)
 
+    #Send the formatted response         
     await ctx.send(response)
+
 bot.run(TOKEN)

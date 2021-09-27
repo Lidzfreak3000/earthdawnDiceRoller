@@ -68,7 +68,8 @@ steps = {
 }
 
 debugTypes = {
-   "debug"
+   "debug",
+   "Debug"
 }
 
 karmaTypes = {
@@ -76,4 +77,26 @@ karmaTypes = {
     "K",
     "karma",
     "Karma"
+}
+
+specialKarmaTypes = {
+    "sk",
+    "Sk",
+    "sK",
+    "SK",
+    "specialkarma",
+    "Specialkarma",
+    "specialKarma",
+    "SpecialKarma"
+}
+
+rollName = {
+    "n",
+    "N",
+    "name",
+    "Name",
+    "l",
+    "L",
+    "label",
+    "Label"
 }

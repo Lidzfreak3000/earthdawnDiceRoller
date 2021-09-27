@@ -1,6 +1,6 @@
 from typing import Tuple
 from d20 import RollSyntaxError
-
+import constants as const
 
 class ExceptionHandler():
     @staticmethod
@@ -30,8 +30,29 @@ class ExceptionHandler():
 class Validator():
     @staticmethod
     def isfloat(value):
-        float(value)
+        if value is not None:
+            float(value)
 
     @staticmethod
     def isint(value):
-        int(value)
+        if value is not None:
+            int(value)
+
+class LabelIndex():
+    @staticmethod
+    def findLabel(*args):
+        index = None
+        if any(i in args for i in const.rollName):
+            index = 
+            return index        
+            #ToDo: create an else    
+
+class UserInput():
+    def __init__(self, *args):
+        self._debug = any(i in args for i in const.debugTypes)
+        self._karma = any(i in args for i in const.karmaTypes)
+        self._specialKarma = (any(i in args for i in const.specialKarmaTypes) and args[2] is not None)
+        self._rollLabel = LabelIndex.findLabel(args)
+        self._rollLabelIndex = LabelIndex.findIndex(args)
+
+     
