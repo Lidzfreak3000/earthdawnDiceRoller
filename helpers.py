@@ -1,5 +1,6 @@
 
 import exceptions as exc
+import constants as const
 from d20 import RollSyntaxError
 
 
@@ -18,6 +19,12 @@ class ExceptionHandler():
             customMessage = 'The input provided is the wrong format. For usage information, enter !help <command>. Ex: !help step'
         elif isinstance(e, exc.StepError):
             customMessage = 'The Step number was not included or was not an integer. For usage information on the "step" command, enter "!help step"'
+        elif isinstance(e, exc.BothKarmasError):
+            customMessage = 'Both "{sk}" and "{k}" were in the command. Remember, "{sk}" allows custom dice commands while "{k}" only adds "{default}" to the roll.'.format(
+                sk = 'Special Karma',
+                k = 'Karma',
+                default = str(const.defaultKarma)
+            )
         else:
             customMessage = defaultMessage
 
@@ -42,11 +49,18 @@ class Validator():
             return False
 
     @staticmethod
-    def checkMinArg(input: userInput.UserInput):
-        #This makes sure that at least the step number was included
+    def checkArgs(input: userInput.UserInput):
+        response = None
+        #Check that the step number was included
         if not input._stepNum._exists:
             raise exc.StepError
         else:
-            return input._stepNum._value
+            response = input._stepNum._value
+        
+        #Check that both kinds of karma weren't used
+        if input._karma._exists and input._specialKarma._exists:
+            raise exc.BothKarmasError
+
+        return response
 
 
