@@ -68,37 +68,27 @@ steps = {
 }
 
 debugTypes = {
-   "debug",
-   "Debug"
+   "debug"
 }
 
 karmaTypes = {
     "k",
-    "K",
-    "karma",
-    "Karma"
+    "karma"
 }
 
 defaultKarma = "1d6e6"
 
 specialKarmaTypes = {
     "sk",
-    "Sk",
-    "sK",
-    "SK",
-    "specialkarma",
-    "Specialkarma",
-    "specialKarma",
-    "SpecialKarma"
+    "specialkarma"
 }
 
 rollName = {
     "n",
-    "N",
     "name",
-    "Name",
     "l",
-    "L",
-    "label",
-    "Label"
+    "label"
 }
+
+defaultMessage = 'Please try again using the format "!<s|step> <step number i.e. 8> <k|karma>" Ex: "!step 8"'
+detailedResponse = '\n\nAn exception of type {0} occurred. \nArguments:{1!r}'

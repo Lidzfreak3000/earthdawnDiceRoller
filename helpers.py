@@ -8,8 +8,6 @@ class ExceptionHandler():
     @staticmethod
     def exHand(e, debug):
         response = 'Error. {0}'
-        detailedResponse = '\n\nAn exception of type {0} occurred. \nArguments:{1!r}'
-        defaultMessage = 'Please try again using the format "!<s|step> <step number i.e. 8> <k|karma>" Ex: "!step 8"'
 
         if isinstance(e, IndexError):
             customMessage = 'Some or all of the required input is missing. For usage information, enter !help <command>. Ex: !help step'
@@ -26,13 +24,13 @@ class ExceptionHandler():
                 default = str(const.defaultKarma)
             )
         else:
-            customMessage = defaultMessage
+            customMessage = const.defaultMessage
 
         # elif isinstance(ex, <insert exception type here>):
         #     customMessage = '<custom Error message>'
 
         if (debug):
-            return response.format(customMessage) + detailedResponse.format(type(e).__name__, e.args)
+            return response.format(customMessage) + const.detailedResponse.format(type(e).__name__, e.args)
         else:
             return response.format(customMessage)
 

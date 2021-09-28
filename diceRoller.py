@@ -14,7 +14,7 @@ validator = helpers.Validator()
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-bot = commands.Bot(command_prefix='!') #Establishes what needs to be at the beggining of the discord message tot trigger the command.
+bot = commands.Bot(command_prefix='!', case_insensitive=True) #Establishes what needs to be at the beggining of the discord message tot trigger the command.
 
 @bot.command(aliases=['s'], 
 brief='Rolls the step number you passed, with or without karma, with or without a name.',
@@ -24,9 +24,11 @@ description='-Required: Rolls the step indicated after the word step.' +
 '\nNote: The karma is optional but first step number is required.', 
 usage='[step number, ex: 8] ' +
 '\n\nOptional:{0} Optional:[This is only required for "Special Karma" ({1}), and follow standard Dice code i.e. 1d6e6] '.format(list(const.karmaTypes) + list(const.specialKarmaTypes), list(const.specialKarmaTypes)) +
-'\n\nOptional:{0} Optional:[Any name/label yopu want. Make sure to add double qoutes around multi-word names]'.format(const.rollName), 
-case_insensitive=True)
+'\n\nOptional:{0} Optional:[Any name/label yopu want. Make sure to add double qoutes around multi-word names]'.format(const.rollName))
 async def step(ctx, *args):
+    #Make all the arguments lower case
+    args = list(map(str.lower, args))
+
     try:
         #This parses the arguments into an object, so that the arguments can be added in any order without breaking the commands.
         cmds = userInput.UserInput(args) 
@@ -36,7 +38,7 @@ async def step(ctx, *args):
         stepNum = validator.checkArgs(cmds)
 
         #If a label was sent in, add it to the front; if not, set the response to an empty string
-        response =  '' if not cmds._rollLabel._exists else '{}: '.format(cmds._rollLabel._value)
+        response =  '' if not cmds._rollLabel._exists else '{}: '.format(cmds._rollLabel._value.capitalize())
 
         #Make the requested roll
         if cmds._karma._exists:
