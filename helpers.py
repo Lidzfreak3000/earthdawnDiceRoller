@@ -63,4 +63,13 @@ class Validator():
 
         return response
 
+    @staticmethod
+    def isevaluable(str):
+        try:
+            eval(str)
+            return True
+        except:
+            return False
+
+
 

@@ -32,13 +32,13 @@ class Mult(InputParameter):
     def fetchValue(self, args):
         from helpers import Validator as val
         import exceptions as exc
-        
+
         value = 1
         index = 0
 
         for item in args:
             if self._cmdNames.__contains__(item):
-                if val.intTryParse(args[0]):
+                if val.intTryParse(args[index+1]):
                     value = args[index+1]
                 else:
                     raise exc.MultError
@@ -50,10 +50,19 @@ class Mult(InputParameter):
 class Step(InputParameter):
     def exists(self, args):
         from helpers import Validator as val
-        return (len(args) > 0 and val.intTryParse(args[0]))
+        return (len(args) > 0 and (val.intTryParse(args[0]) or val.isevaluable(args[0])))
 
     def fetchValue(self, args):
-        return None if not self._exists else self._cmdNames['{}'.format(args[0])]
+        from helpers import Validator as val
+        value = None 
+
+        if self._exists:
+            if val.isevaluable(args[0]):
+                value = self._cmdNames['{}'.format(eval(args[0]))]
+            else:
+                value = self._cmdNames['{}'.format(args[0])]
+
+        return value
 
 
 class Label(InputParameter):
