@@ -3,3 +3,6 @@ class StepError(Exception):
 
 class BothKarmasError(Exception):
     pass
+
+class MultError(Exception):
+    pass

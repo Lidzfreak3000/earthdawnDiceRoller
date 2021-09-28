@@ -28,6 +28,25 @@ class InputParameter:
         return value
 
 
+class Mult(InputParameter):        
+    def fetchValue(self, args):
+        from helpers import Validator as val
+        import exceptions as exc
+        
+        value = 1
+        index = 0
+
+        for item in args:
+            if self._cmdNames.__contains__(item):
+                if val.intTryParse(args[0]):
+                    value = args[index+1]
+                else:
+                    raise exc.MultError
+            index += 1
+
+        return value
+
+
 class Step(InputParameter):
     def exists(self, args):
         from helpers import Validator as val
@@ -66,6 +85,8 @@ class UserInput():
         print(self._rollLabel)
         self._stepNum = Step(const.steps, args)
         print(self._stepNum)
+        self._mult = Mult(const.multiplierTypes, args)
+        print(self._mult)
 
     def __str__(self):
         lines = [self.__class__.__name__ + ':']

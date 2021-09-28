@@ -23,6 +23,8 @@ class ExceptionHandler():
                 k = 'Karma',
                 default = str(const.defaults["defaultMessage"])
             )
+        elif isinstance(e, exc.StepError):
+            customMessage = 'The Multiplier number was not included or was not an integer. For usage information on the "step" command, enter "!help step"'
         else:
             customMessage = const.defaults["defaultMessage"]
 

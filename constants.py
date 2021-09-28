@@ -93,3 +93,9 @@ rollName = {
     "l",
     "label"
 }
+
+multiplierTypes = {
+    "m",
+    "mult",
+    "x"
+}
