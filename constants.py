@@ -79,6 +79,8 @@ karmaTypes = {
     "Karma"
 }
 
+defaultKarma = "1d6e6"
+
 specialKarmaTypes = {
     "sk",
     "Sk",
