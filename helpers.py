@@ -21,16 +21,16 @@ class ExceptionHandler():
             customMessage = 'Both "{sk}" and "{k}" were in the command. Remember, "{sk}" allows custom dice commands while "{k}" only adds "{default}" to the roll.'.format(
                 sk = 'Special Karma',
                 k = 'Karma',
-                default = str(const.defaultKarma)
+                default = str(const.defaults["defaultMessage"])
             )
         else:
-            customMessage = const.defaultMessage
+            customMessage = const.defaults["defaultMessage"]
 
         # elif isinstance(ex, <insert exception type here>):
         #     customMessage = '<custom Error message>'
 
         if (debug):
-            return response.format(customMessage) + const.detailedResponse.format(type(e).__name__, e.args)
+            return response.format(customMessage) + const.defaults["detailedResponse"].format(type(e).__name__, e.args)
         else:
             return response.format(customMessage)
 

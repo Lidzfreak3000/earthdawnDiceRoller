@@ -1,3 +1,9 @@
+defaults = {
+    "defaultKarma": "1d6e6",
+    "detailedResponse": "\n\nAn exception of type {0} occurred. \nArguments:{1!r}",
+    "defaultMessage": 'Please try again using the format "!<s|step> <step number i.e. 8> <k|karma>" Ex: "!step 8"'
+}
+
 steps = {
     "1": "1d4e4-2",
     "2": "1d4e4-1",
@@ -76,8 +82,6 @@ karmaTypes = {
     "karma"
 }
 
-defaultKarma = "1d6e6"
-
 specialKarmaTypes = {
     "sk",
     "specialkarma"
@@ -89,6 +93,3 @@ rollName = {
     "l",
     "label"
 }
-
-defaultMessage = 'Please try again using the format "!<s|step> <step number i.e. 8> <k|karma>" Ex: "!step 8"'
-detailedResponse = '\n\nAn exception of type {0} occurred. \nArguments:{1!r}'

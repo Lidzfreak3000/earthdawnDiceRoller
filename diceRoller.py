@@ -19,7 +19,7 @@ bot = commands.Bot(command_prefix='!', case_insensitive=True) #Establishes what 
 @bot.command(aliases=['s'], 
 brief='Rolls the step number you passed, with or without karma, with or without a name.',
 description='-Required: Rolls the step indicated after the word step.' + 
-'\n-Optional: Will add standard karma ({0}) or custom karma (reference dice syntax) to the roll.'.format(const.defaultKarma) +
+'\n-Optional: Will add standard karma ({0}) or custom karma (reference dice syntax) to the roll.'.format(const.defaults["defaultKarma"]) +
 '\n-Optional: Can name the roll. Just make sure that if you are using a multi-word name, that you put it in qoutes.' +
 '\nNote: The karma is optional but first step number is required.', 
 usage='[step number, ex: 8] ' +
@@ -42,7 +42,7 @@ async def step(ctx, *args):
 
         #Make the requested roll
         if cmds._karma._exists:
-            response += str(d20.roll(stepNum + '+' + const.defaultKarma))
+            response += str(d20.roll(stepNum + '+' + const.defaults["defaultKarma"]))
         elif cmds._specialKarma._exists:
             response += str(d20.roll(stepNum + '+' + cmds._specialKarma._value))
         else:
