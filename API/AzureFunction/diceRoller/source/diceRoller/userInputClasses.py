@@ -1,4 +1,4 @@
-import constants as const
+from . import constants as const
 
 
 class InputParameter:
@@ -30,8 +30,8 @@ class InputParameter:
 
 class Mult(InputParameter):        
     def fetchValue(self, args):
-        from helpers import Validator as val
-        import exceptions as exc
+        from .helpers import Validator as val
+        from . import exceptions as exc
 
         value = 1
         index = 0
@@ -49,11 +49,11 @@ class Mult(InputParameter):
 
 class Step(InputParameter):
     def exists(self, args):
-        from helpers import Validator as val
+        from .helpers import Validator as val
         return (len(args) > 0 and (val.intTryParse(args[0]) or val.isevaluable(args[0])))
 
     def fetchValue(self, args):
-        from helpers import Validator as val
+        from .helpers import Validator as val
         value = None 
 
         if self._exists:
@@ -84,7 +84,7 @@ class Debug(InputParameter):
 
 
 class UserInput():
-    async def __init__(self, args):
+    def __init__(self, args):
         print("initializing")
         self._karma = Karma(const.karmaTypes, args)
         print(self._karma)

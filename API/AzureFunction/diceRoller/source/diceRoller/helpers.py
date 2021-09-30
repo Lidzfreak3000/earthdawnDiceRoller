@@ -1,6 +1,6 @@
 
-import exceptions as exc
-import constants as const
+from . import exceptions as exc
+from . import constants as const
 from d20 import RollSyntaxError
 
 
@@ -38,7 +38,7 @@ class ExceptionHandler():
 
 
 class Validator():
-    import userInputClasses as userInput
+    from . import userInputClasses as userInput
 
     @staticmethod
     def intTryParse(value):
@@ -49,7 +49,7 @@ class Validator():
             return False
 
     @staticmethod
-    async def checkArgs(input: userInput.UserInput):
+    def checkArgs(input: userInput.UserInput):
         response = None
         #Check that the step number was included
         if not input._stepNum._exists:

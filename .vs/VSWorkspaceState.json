@@ -3,12 +3,12 @@
     "",
     "\\API",
     "\\API\\AzureFunction",
+    "\\API\\AzureFunction\\diceRoller",
     "\\commandLine",
     "\\discord",
-    "\\discord\\source\\diceRoller",
     "\\source",
     "\\source\\diceRoller"
   ],
-  "SelectedNode": "\\API\\AzureFunction",
+  "SelectedNode": "\\API\\AzureFunction\\diceRoller\\__init__.py",
   "PreviewInSolutionExplorer": false
 }

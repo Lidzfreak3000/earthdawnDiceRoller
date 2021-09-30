@@ -1,26 +1,28 @@
 # bot.py
 import os
 import d20
-import helpers
-import userInputClasses as userInput
-import constants as const
+from . import userInputClasses as userInput
+from . import constants as const
+from . import helpers
 
 errorHandler = helpers.ExceptionHandler()
 validator = helpers.Validator()
 
-async def step(args):
+def step(args):
     #Make all the arguments lower case
+    print(args)
     args = list(map(str.lower, args))
+    print(args)
     response =  ''
     i = 1
 
     try:
         #This parses the arguments into an object, so that the arguments can be added in any order without breaking the commands.
-        cmds = await userInput.UserInput(args) 
+        cmds = userInput.UserInput(args) 
 
         #This ensures that at least the step number was provided (as the other functions this bot preforms are supplementary)
         # and that only 'karma' or 'specialKarma' was used.
-        stepNum = await validator.checkArgs(cmds)
+        stepNum = validator.checkArgs(cmds)
 
         maxIterations = 1 if not cmds._mult._exists else int(cmds._mult._value)
 
@@ -50,5 +52,5 @@ async def step(args):
         debug = userInput.Debug(const.debugTypes, args)
         response = errorHandler.exHand(ex, debug._exists)
 
-    #Return the formatted response         
+    #Send the formatted response         
     return response
