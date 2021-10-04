@@ -11,8 +11,6 @@ validator = helpers.Validator()
 def step(args):
     #Make all the arguments lower case
     print(args)
-    args = list(map(str.lower, args))
-    print(args)
     response =  ''
     i = 1
 

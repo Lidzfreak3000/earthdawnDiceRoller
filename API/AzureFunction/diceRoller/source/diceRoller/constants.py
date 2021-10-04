@@ -5,6 +5,10 @@ defaults = {
 }
 
 steps = {
+    "stepTypes": [
+        "step",
+        "s"
+    ],
     "1": "1d4e4-2",
     "2": "1d4e4-1",
     "3": "1d4e4",

@@ -1,3 +1,5 @@
+from os import truncate
+from .exceptions import StepError
 from . import constants as const
 
 
@@ -14,16 +16,15 @@ class InputParameter:
         return '\n    '.join(lines)
 
     def exists(self, args):
+        args = [x.lower() for x in list(args.keys())]
         return any(i in args for i in self._cmdNames)
 
     def fetchValue(self, args):
         value = None
-        index = 0
 
         for item in args:
             if self._cmdNames.__contains__(item):
-                value = args[index+1]
-            index += 1
+                value = args[item]
 
         return value
 
@@ -34,33 +35,42 @@ class Mult(InputParameter):
         from . import exceptions as exc
 
         value = 1
-        index = 0
 
         for item in args:
             if self._cmdNames.__contains__(item):
-                if val.intTryParse(args[index+1]):
-                    value = args[index+1]
+                if val.intTryParse(args[item]):
+                    value = args[item]
                 else:
                     raise exc.MultError
-            index += 1
 
         return value
 
 
 class Step(InputParameter):
     def exists(self, args):
-        from .helpers import Validator as val
-        return (len(args) > 0 and (val.intTryParse(args[0]) or val.isevaluable(args[0])))
+        args = [x.lower() for x in list(args.keys())]
+
+        if any(i in args for i in self._cmdNames):
+            return True
+
+        #Raise a StepError if the step param is missing from the json
+        else:
+            raise StepError
 
     def fetchValue(self, args):
         from .helpers import Validator as val
+
         value = None 
 
-        if self._exists:
-            if val.isevaluable(args[0]):
-                value = self._cmdNames['{}'.format(eval(args[0]))]
-            else:
-                value = self._cmdNames['{}'.format(args[0])]
+        for item in args:
+            print("Checking if step: " + item)
+            if self._cmdNames.__contains__(item):
+                if val.isevaluable(args[item]):
+                    print("Eval: " + args[item])
+                    value = const.steps['{}'.format(int(eval(args[item])))]
+                else:
+                    print("No eval: " + args[item])
+                    value = const.steps['{}'.format(args[item])]
 
         return value
 
@@ -75,7 +85,7 @@ class SpecialKarma(InputParameter):
 
 class Karma(InputParameter):
     def fetchValue(self, args):
-        return None  # This is because Karma does not have a value outside of 'exists'
+        return const.defaults["defaultKarma"]
 
 
 class Debug(InputParameter):
@@ -92,7 +102,8 @@ class UserInput():
         print(self._specialKarma)
         self._rollLabel = Label(const.rollName, args)
         print(self._rollLabel)
-        self._stepNum = Step(const.steps, args)
+        print(type(const.steps["stepTypes"]))
+        self._stepNum = Step(const.steps["stepTypes"], args)
         print(self._stepNum)
         self._mult = Mult(const.multiplierTypes, args)
         print(self._mult)
