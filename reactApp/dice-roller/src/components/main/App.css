@@ -1,0 +1,17 @@
+.App {
+    display: flex;
+    flex-direction: row wrap;
+    justify-content: space-around;
+}
+
+@media all and (min-width: 600px) {
+    .aside { 
+        flex: 1 0 0;
+     }
+  }
+
+@media all and (max-width: 600px) {
+    .App{
+        flex-direction: column;
+    }
+}
