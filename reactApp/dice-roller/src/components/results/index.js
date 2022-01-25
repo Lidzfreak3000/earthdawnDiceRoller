@@ -1,8 +1,25 @@
-import Todo from "../common/todo";
+import ResultsText from "./text";
+import { Tab, Tabs } from "react-bootstrap";
+import "./results.css"
 
 function Results(props) {
     return (
-        <Todo />
+        <Tabs
+            defaultActiveKey="text"
+            id="tab-menu"
+            className="mb-3"
+            fill
+        >
+            <Tab eventKey="text" title="Text">
+                <ResultsText />
+            </Tab>
+            <Tab eventKey="2d" title="2D Roll">
+                blergh 2
+            </Tab>
+            <Tab eventKey="3d" title="3D Roll">
+                blergh 2
+            </Tab>
+        </Tabs >
     );
 }
 

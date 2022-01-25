@@ -1,0 +1,10 @@
+.TextResults{
+    flex-grow: 1;
+    text-align: center;
+}
+
+.tab-content{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}

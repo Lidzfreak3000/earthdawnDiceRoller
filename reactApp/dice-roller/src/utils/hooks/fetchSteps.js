@@ -33,7 +33,7 @@ function FetchSteps() {
   } else {
     return (
       <>
-        {items.map((buttonLabel, i) => (
+        {Object.keys(items).map((buttonLabel, i) => (
           <DiceButton key={i} name={buttonLabel} />
         ))}
       </>

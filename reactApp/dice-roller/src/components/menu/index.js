@@ -10,10 +10,10 @@ function Menu(props) {
             fill
         >
             <Tab eventKey="steps" title="Steps">
-                <Steps buttons={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}/>
+                <Steps />
             </Tab>
             <Tab eventKey="custom" title="Custom Roll">
-                blergh 2
+                Custom Roll Placeholder
             </Tab>
         </Tabs>
     );
