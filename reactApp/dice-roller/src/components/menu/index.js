@@ -1,4 +1,5 @@
 import { Tabs, Tab } from 'react-bootstrap';
+import CustomRoll from './custom';
 import Steps from './steps';
 
 function Menu(props) {
@@ -13,7 +14,7 @@ function Menu(props) {
                 <Steps />
             </Tab>
             <Tab eventKey="custom" title="Custom Roll">
-                Custom Roll Placeholder
+                <CustomRoll />
             </Tab>
         </Tabs>
     );

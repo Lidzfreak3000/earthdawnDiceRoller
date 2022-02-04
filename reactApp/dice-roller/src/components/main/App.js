@@ -9,6 +9,7 @@ import { useState } from 'react';
 
 function App() {
   const [value, setValue] = useState("Please choose a step to roll.");
+  const [stepsValue, setStepsValue] = useState([]);
 
   return (
     <div>
@@ -16,7 +17,7 @@ function App() {
         <Header />
       </div>
       <div className="App">
-        <ResultsContext.Provider value={{ value, setValue }}>
+        <ResultsContext.Provider value={{ value, setValue, stepsValue, setStepsValue }}>
           <div className="Menu aside">
             <Menu />
           </div>

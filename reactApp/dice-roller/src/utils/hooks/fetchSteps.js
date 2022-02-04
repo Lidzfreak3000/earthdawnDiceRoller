@@ -1,10 +1,12 @@
 import DiceButton from '../../components/menu/dice-buttons';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { ResultsContext } from '../contexts/ResultsContext';
 
 function FetchSteps() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([]);
+
+  const { stepsValue, setStepsValue } = useContext(ResultsContext);
 
   useEffect(() => {
     var requestOptions = {
@@ -17,14 +19,14 @@ function FetchSteps() {
       .then(
         (result) => {
           setIsLoaded(true);
-          setItems(result);
+          setStepsValue(result);
         },
         (error) => {
           setIsLoaded(true);
           setError(error);
         }
       )
-  }, [])
+  }, [setStepsValue])
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -33,7 +35,7 @@ function FetchSteps() {
   } else {
     return (
       <>
-        {Object.keys(items).map((buttonLabel, i) => (
+        {Object.keys(stepsValue).map((buttonLabel, i) => (
           <DiceButton key={i} name={buttonLabel} />
         ))}
       </>
