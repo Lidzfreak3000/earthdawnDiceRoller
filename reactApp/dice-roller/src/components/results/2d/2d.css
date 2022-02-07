@@ -1,0 +1,23 @@
+:root {
+  --grid-item-width: 20%;
+  --grid-item-height: 50%;
+  --svg-width: 100%;
+  --svg-height: 100%;
+}
+
+.grid { 
+    margin: 5px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--grid-item-width), 1fr));
+}
+
+grid-item {
+    display: grid;            
+    align-items: center;      
+    justify-items: center;
+}
+
+svg{
+    margin: 5px;
+    max-height: 50vh;
+}
