@@ -35,7 +35,7 @@ function Steps(props) {
     };
 
     return (
-        <Button className="diceButton" key={props.key} name={props.name} onClick={handleChange}>
+        <Button className="diceButton" name={props.name} onClick={handleChange}>
             {props.name}
         </Button>
     );

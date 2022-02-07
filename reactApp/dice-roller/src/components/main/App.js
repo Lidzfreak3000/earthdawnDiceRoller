@@ -8,7 +8,7 @@ import { ResultsContext } from '../../utils/contexts/ResultsContext';
 import { useState } from 'react';
 
 function App() {
-  const [value, setValue] = useState("Please choose a step to roll.");
+  const [value, setValue] = useState(null);
   const [stepsValue, setStepsValue] = useState([]);
 
   return (
