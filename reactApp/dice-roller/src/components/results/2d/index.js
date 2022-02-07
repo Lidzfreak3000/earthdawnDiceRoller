@@ -8,36 +8,40 @@ const ParseInput = (output, value) => {
     const myArray = input.split(" ");
     const conditions = ["+", "="]; //This is used to define what values should be ignored/skipped
     let currentSides = "";
+    let skip = false;
 
     output.total = myArray.at(-1);
 
-    for (var i = 0; i < (myArray.length - 1); i++) {
-        if (conditions.some(el => myArray[i].includes(el))) {
+    myArray.forEach((item) => {
+        if (conditions.some(el => item.includes(el))) {
             //Skip that item in the array
         }
-        else if (myArray[i].includes("d")) {
+        else if (item.includes("d")) {
             //Pull out what kind of die was being rolled
-            currentSides = myArray[i].substring(
-                myArray[i].indexOf("d") + 1,
-                myArray[i].indexOf("e")
+            currentSides = item.substring(
+                item.indexOf("d") + 1,
+                item.indexOf("e")
             );
         }
-        else if (myArray[i].includes("-")) {
+        else if (item.includes("-")) {
             //Ignore subtractions b/c they arent dice rolls
-            i++;
+            skip = true;
         }
         else {
             //Pull out the actual dice results one at a time
-            output.results.push({
-                sides: `${currentSides}`,
-                value: `${parseInt(myArray[i], 10)}`
-            });
+            if (!skip) {
+                output.results.push({
+                    sides: `${currentSides}`,
+                    value: `${parseInt(item, 10)}`
+                });
+                skip = false;
 
-            console.log("else: " + myArray[i]);
-            console.log("currentSides: " + currentSides);
-            console.log("Current Results: " + JSON.stringify(output));
+                console.log("else: " + item);
+                console.log("currentSides: " + currentSides);
+                console.log("Current Results: " + JSON.stringify(output));
+            }
         }
-    }
+    });
 
     return output;
 }
