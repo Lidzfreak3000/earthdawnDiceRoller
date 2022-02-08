@@ -6,15 +6,15 @@ import DiceSVG from "./diceSVG";
 const ParseInput = (output, value) => {
     const input = value.replace(/([*!`(),])/gm, '');
     const myArray = input.split(" ");
-    const conditions = ["+", "="]; //This is used to define what values should be ignored/skipped
+
     let currentSides = "";
     let skip = false;
 
     output.total = myArray.at(-1);
 
     myArray.forEach((item) => {
-        if (conditions.some(el => item.includes(el))) {
-            //Skip that item in the array
+        if (item.includes("+")) {
+            //Ignore that item in the array
         }
         else if (item.includes("d")) {
             //Pull out what kind of die was being rolled
@@ -23,7 +23,7 @@ const ParseInput = (output, value) => {
                 item.indexOf("e")
             );
         }
-        else if (item.includes("-")) {
+        else if (item.includes("-") || item.includes("=")) {
             //Ignore subtractions b/c they arent dice rolls
             skip = true;
         }

@@ -17,15 +17,15 @@ export const DiceSVG = (props) => {
             break;
 
         case "10":
-            dieType = <rect width="250" height="250" rx="50" ry="50" fill="#bfbeb0" strokeWidth="0" />
+            dieType = <polygon points="125,0 250,125 125,250 0,125" rx="50" ry="50" fill="#bfbeb0" strokeWidth="0" />
             break;
 
         case "12":
-            dieType = <rect width="250" height="250" rx="50" ry="50" fill="#bfbeb0" strokeWidth="0" />
+            dieType = <polygon points="125,0 0,100 50,250 200,250 250,100" rx="50" ry="50" fill="#bfbeb0" strokeWidth="0" />
             break;
 
         case "20":
-            dieType = <rect width="250" height="250" rx="50" ry="50" fill="#bfbeb0" strokeWidth="0" />
+            dieType = <polygon points="125,0 0,75 0,175 125,250 250,83" rx="50" ry="50" fill="#bfbeb0" strokeWidth="0" />
             break;
 
         default:
